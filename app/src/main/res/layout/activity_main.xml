@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ar.com.universitas.clapp.MainActivity"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription=""
+        android:src="@mipmap/ic_launcher"
+        android:layout_weight="0.57" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/permite_agregar_productos_ingredientes_a_tu_lista"
+        android:id="@+id/textView"
+        android:gravity="center" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/armar_mi_lista"
+        android:id="@+id/btnarmilist"
+        android:layout_gravity="center_horizontal"
+        android:onClick="OnClickbtnarmitist"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/permite_ver_tu_almacen_y_quitar_productos"
+        android:id="@+id/textView2"
+        android:gravity="center" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mi_almacen"
+        android:id="@+id/btnmialm"
+        android:layout_gravity="center_horizontal"
+        android:onClick="OnClickbtnmialm" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/listado_de_productos_en_tu_almacen_sin_stock"
+        android:id="@+id/textView3"
+        android:gravity="center" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/futura_compra"
+        android:id="@+id/btnfutcom"
+        android:layout_gravity="center_vertical"
+        android:onClick="OnClickbtnfutcom" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/acceso_a_recetas_rapidas_y_sencillas"
+        android:id="@+id/textView4"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rapi_receta"
+        android:id="@+id/btnraprec"
+        android:layout_gravity="center_vertical"
+        android:onClick="OnClickbtnraprec" />
+
+</LinearLayout>
