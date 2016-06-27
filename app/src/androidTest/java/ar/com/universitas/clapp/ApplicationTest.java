@@ -8,7 +8,7 @@ import android.test.ApplicationTestCase;
  */
 public class ApplicationTest extends ApplicationTestCase<Application> {
 
-    /* ----------agregue un comentatio -chino-------------*/
+    /* ----------agregue un comentatio -chino-llllll------------*/
     public ApplicationTest() {
         super(Application.class);
     }
