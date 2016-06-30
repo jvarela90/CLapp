@@ -34,8 +34,7 @@
         android:text="@string/armar_mi_lista"
         android:id="@+id/btnarmilist"
         android:layout_gravity="center_horizontal"
-        android:onClick="OnClickbtnarmitist"
-        style="@style/buttonStyle"/>
+        android:onClick="OnClickbtnarmitist"/>
 
     <TextView
         android:layout_width="wrap_content"
