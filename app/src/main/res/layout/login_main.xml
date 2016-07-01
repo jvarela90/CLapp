@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/usu"
-        android:hint="@string/usuario"
+        android:hint="usuario"
         android:layout_gravity="center_horizontal" />
 
     <EditText
@@ -26,12 +26,12 @@
         android:inputType="textPassword"
         android:id="@+id/pass"
         android:layout_gravity="center_horizontal"
-        android:hint="@string/contrase_a" />
+        android:hint="contraseña" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ingresar"
+        android:text="ingresar"
         android:id="@+id/login"
         android:layout_gravity="center_horizontal"
         android:onClick="OnClicklogin" />
