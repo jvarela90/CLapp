@@ -9,12 +9,7 @@
         android:layout_height="wrap_content"
         android:text="@string/volver"
         android:id="@+id/btnvolver"
-        android:onClick="onClickbtnvolver" />
+        android:onClick="onClickbtnvolver"
+        android:layout_gravity="center_horizontal" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/_1"
-        android:id="@+id/textView5" />
 </LinearLayout>
