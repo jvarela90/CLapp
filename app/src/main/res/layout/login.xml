@@ -69,9 +69,10 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/TextView01"
-        android:layout_centerVertical="true"
-        android:text="@string/username" />
+        android:text="@string/username"
+        android:layout_above="@+id/username"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_alignStart="@+id/TextView01" />
 
     <ImageView
         android:layout_width="wrap_content"

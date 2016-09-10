@@ -23,7 +23,7 @@ public class InicioLogin extends Activity {
         }
 
         public void onClickclapplogoinic (View view){
-            Intent i = new Intent(this,MainLogin.class);
+            Intent i = new Intent(this,Login.class);
             startActivity(i);
         }
 
