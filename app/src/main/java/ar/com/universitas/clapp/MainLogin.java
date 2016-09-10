@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by Julian on 12/06/2016.
- */
+
 public class MainLogin extends Activity{
 
     Button login;
@@ -16,7 +14,7 @@ public class MainLogin extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_main);
+        setContentView(R.layout.login);
 
        login = (Button)findViewById(R.id.login);
 
