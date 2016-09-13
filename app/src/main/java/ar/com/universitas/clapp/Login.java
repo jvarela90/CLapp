@@ -40,7 +40,7 @@ public class Login extends Activity implements OnClickListener {
     // y poner de la siguiente manera
     // "http://xxx.xxx.x.x:1234/cas/login.php";
 
-    private static final String LOGIN_URL = "http://31.170.164.88/clapp/login.php";
+    private static final String LOGIN_URL = "http://clappuniv.esy.es/loginclapp/login.php";
 
     // La respuesta del JSON es
     private static final String TAG_SUCCESS = "success";
@@ -65,7 +65,13 @@ public class Login extends Activity implements OnClickListener {
         mRegister.setOnClickListener(this);
 
     }
-
+    /**
+     * Created by Julian on 12/06/2016.
+     *
+     *
+     *
+     * ESTO ES PARA PROBAR EL COMMITEO para Cesar
+     */
     @Override
     public void onClick(View v) {
         // TODO Auto-generated method stub

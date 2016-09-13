@@ -24,7 +24,13 @@ public class Register extends Activity implements OnClickListener{
 
     // Progress Dialog
     private ProgressDialog pDialog;
-
+    /**
+     * Created by Julian on 12/06/2016.
+     *
+     *
+     *
+     * ESTO ES PARA PROBAR EL COMMITEO para Cesar
+     */
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
 

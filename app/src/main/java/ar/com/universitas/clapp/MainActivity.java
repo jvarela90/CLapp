@@ -12,7 +12,13 @@ public class MainActivity extends AppCompatActivity {
     Button btnmialm;
     Button btnraprec;
 
-
+    /**
+     * Created by Julian on 12/06/2016.
+     *
+     *
+     *
+     * ESTO ES PARA PROBAR EL COMMITEO para Cesar
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
