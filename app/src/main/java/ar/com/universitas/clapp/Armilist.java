@@ -1,23 +1,15 @@
 package ar.com.universitas.clapp;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,26 +19,25 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Armilist extends Activity {
+public class Armilist extends AppCompatActivity {
 
     // Progress Dialog
     private ProgressDialog pDialog;
 
     // Creating JSON Parser object
-    JSONParser jParser = new JSONParser();
+    JSONParseraml jParser = new JSONParseraml();
 
     ArrayList<HashMap<String, String>> empresaList;
 
 
     // url to get all products list
-    private static String url_all_usuarios = "http://clappuniv.esy.es/clapp/get_all_usuarios.php";
+    private static String url_all_empresas = "http://basededatosremotas.meximas.com/ramiroconnect/get_all_empresas.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS = "usuario";
-    private static final String TAG_ID = "idusuario";
-    private static final String TAG_NOMBRE = "username";
-
+    private static final String TAG_PRODUCTS = "empresas";
+    private static final String TAG_ID = "id";
+    private static final String TAG_NOMBRE = "nombre";
     // products JSONArray
     JSONArray products = null;
 
@@ -79,7 +70,7 @@ public class Armilist extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(Armilist.this);
-            pDialog.setMessage("Cargando usuarios. Por favor espere...");
+            pDialog.setMessage("Cargando comercios. Por favor espere...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -92,7 +83,7 @@ public class Armilist extends Activity {
             // Building Parameters
             List params = new ArrayList();
             // getting JSON string from URL
-            JSONObject json = jParser.makeHttpRequest(url_all_usuarios, "GET", params);
+            JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
 
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
@@ -163,35 +154,3 @@ public class Armilist extends Activity {
         }
     }
 }
-
-
-/*
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
-
-public class Armilist extends Activity {
-
-    Button btnvolver;
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.armilist);
-
-        btnvolver = (Button) findViewById(R.id.btnvolver);
-    }
-
-    public void onClickbtnvolver (View view){
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-
-    }
-
-
-
-}
-*/
