@@ -31,11 +31,11 @@ public class Armilist extends AppCompatActivity {
 
 
     // url to get all products list
-    private static String url_all_empresas = "http://basededatosremotas.meximas.com/ramiroconnect/get_all_empresas.php";
+    private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS = "empresas";
+    private static final String TAG_PRODUCTS = "proding";
     private static final String TAG_ID = "id";
     private static final String TAG_NOMBRE = "nombre";
     // products JSONArray
