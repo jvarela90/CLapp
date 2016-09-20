@@ -33,7 +33,7 @@ public class Login extends Activity implements OnClickListener {
     // Clase JSONParser
     JSONParser jsonParser = new JSONParser();
 
-
+//852
     // si trabajan de manera local "localhost" :
     // En windows tienen que ir, run CMD > ipconfig
     // buscar su IP

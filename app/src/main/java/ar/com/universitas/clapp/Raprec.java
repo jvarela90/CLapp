@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 /**
- * Created by Julian on 12/06/2016.
+ * Created by Julian on 12/06/2016.55
  */
 public class Raprec extends Activity {
     Button btnvolver;
