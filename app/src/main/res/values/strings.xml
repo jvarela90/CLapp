@@ -1,4 +1,5 @@
 <resources>
+    <!-- -->
     <string name="app_name">CLapp</string>
     <string name="gil">GIL</string>
     <string name="rapi_receta">RAPI-RECETA</string>
