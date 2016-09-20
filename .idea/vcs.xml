@@ -2,9 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CLapp" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CLapp/CLapp" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CLapp/CLappOrigin" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CLappOrigin" vcs="Git" />
   </component>
 </project>
