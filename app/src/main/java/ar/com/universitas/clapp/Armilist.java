@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//hghgh
 public class Armilist extends AppCompatActivity {
 
     // Progress Dialog
@@ -31,7 +30,7 @@ public class Armilist extends AppCompatActivity {
 
 
     // url to get all products list
-    private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php";
+    private static String url_all_empresas = "http://clappuniv.esy.es/clapp/get_all_proding.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -121,6 +120,7 @@ public class Armilist extends AppCompatActivity {
             }
             return null;
         }
+
 
         /**
          * After completing background task Dismiss the progress dialog
