@@ -6,10 +6,8 @@
 
     <ListView
         android:id="@+id/listAllProducts"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="3dp"
-        android:background="#fff">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     </ListView>
 
 </LinearLayout>

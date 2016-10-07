@@ -1,6 +1,7 @@
 package ar.com.universitas.clapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -18,6 +19,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ar.com.universitas.adapter.ProductoAdapter;
+import ar.com.universitas.model.ProductModel;
+
 public class Armilist extends AppCompatActivity {
 
     // Progress Dialog
@@ -26,8 +30,10 @@ public class Armilist extends AppCompatActivity {
     // Creating JSON Parser object
     JSONParseraml jParser = new JSONParseraml();
 
-    ArrayList<HashMap<String, String>> empresaList;
+    //ArrayList<HashMap<String, String>> empresaList;
 
+    // Creo un arreglo con nuestro objeto producto
+    ProductModel[] empresaList;
 
     // url to get all products list
     private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php";
@@ -48,10 +54,10 @@ public class Armilist extends AppCompatActivity {
         setContentView(R.layout.armilist);
 
         // Hashmap para el ListView
-        empresaList = new ArrayList<HashMap<String, String>>();
+        //empresaList = new ArrayList<HashMap<String, String>>();
 
         // Cargar los productos en el Background Thread
-        new LoadAllProducts().execute();
+        new LoadAllProducts(this).execute();
         lista = (ListView) findViewById(R.id.listAllProducts);
 
         ActionBar actionBar = getSupportActionBar();
@@ -61,6 +67,20 @@ public class Armilist extends AppCompatActivity {
 
 
     class LoadAllProducts extends AsyncTask<String, String, String> {
+
+        private Context context;
+
+        public LoadAllProducts(Context context) {
+            this.context = context;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public void setContext(Context context) {
+            this.context = context;
+        }
 
         /**
          * Antes de empezar el background thread Show Progress Dialog
@@ -83,7 +103,6 @@ public class Armilist extends AppCompatActivity {
             List params = new ArrayList();
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
-
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
 
@@ -97,22 +116,27 @@ public class Armilist extends AppCompatActivity {
                     products = json.getJSONArray(TAG_PRODUCTS);
 
                     // looping through All Products
-                    //Log.i("ramiro", "produtos.length" + products.length());
-                    for (int i = 0; i < products.length(); i++) {
-                        JSONObject c = products.getJSONObject(i);
+                    Log.i("tracker1", "produtos.length" + products.length());
 
-                        // Storing each json item in variable
-                        String id = c.getString(TAG_ID);
-                        String name = c.getString(TAG_NOMBRE);
+                    //Valido q el Json no venga vacio ni nuleado
+                    if ((products != null) && (products.length()>0)){
+                        //Inicializo el array de productos parseado a objetos del Modelo.
+                        empresaList = new ProductModel[products.length()];
+                        //uso una sola referencia al objeto
+                        ProductModel productModel;
 
-                        // creating new HashMap
-                        HashMap map = new HashMap();
+                        for (int i = 0; i < products.length(); i++) {
+                            JSONObject c = products.getJSONObject(i);
 
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_ID, id);
-                        map.put(TAG_NOMBRE, name);
+                            // Storing each json item in variable
+                            int id = c.getInt(TAG_ID);
+                            String name = c.getString(TAG_NOMBRE);
 
-                        empresaList.add(map);
+                            // Instancio mi clase modelo con la informacion obtenida
+                            productModel = new ProductModel(name,1,id);
+                            //lo meto a la bolsa
+                            empresaList[i]=productModel;
+                        }
                     }
                 }
             } catch (JSONException e) {
@@ -120,7 +144,6 @@ public class Armilist extends AppCompatActivity {
             }
             return null;
         }
-
 
         /**
          * After completing background task Dismiss the progress dialog
@@ -134,21 +157,10 @@ public class Armilist extends AppCompatActivity {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(
-                            Armilist.this,
-                            empresaList,
-                            R.layout.single_post,
-                            new String[] {
-                                    TAG_ID,
-                                    TAG_NOMBRE,
-                            },
-                            new int[] {
-                                    R.id.single_post_tv_id,
-                                    R.id.single_post_tv_nombre,
-                            });
+                    ProductoAdapter productoAdapter = new ProductoAdapter(getContext(),empresaList);
                     // updating listview
                     //setListAdapter(adapter);
-                    lista.setAdapter(adapter);
+                    lista.setAdapter(productoAdapter);
                 }
             });
         }
