@@ -13,10 +13,10 @@ public class ProductModel {
     /* los atributos de una clase en general son como datos sensibles
     estos no podran ser accesados desde fuera de la clase */
     private String nombre;
-    private int checkBoxValue;
+    private boolean checkBoxValue;
     private int idProduct;
 
-    public ProductModel(String nombre, int checkBoxValue, int idProduct) {
+    public ProductModel(String nombre, boolean checkBoxValue, int idProduct) {
         this.nombre = nombre;
         this.checkBoxValue = checkBoxValue;
         this.idProduct = idProduct;
@@ -31,11 +31,11 @@ public class ProductModel {
         this.nombre = nombre;
     }
 
-    public int getCheckBoxValue() {
+    public boolean getCheckBoxValue() {
         return checkBoxValue;
     }
 
-    public void setCheckBoxValue(int checkBoxValue) {
+    public void setCheckBoxValue(boolean checkBoxValue) {
         this.checkBoxValue = checkBoxValue;
     }
 

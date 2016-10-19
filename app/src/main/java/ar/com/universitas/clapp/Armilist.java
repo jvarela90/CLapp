@@ -36,7 +36,7 @@ public class Armilist extends AppCompatActivity {
     ProductModel[] empresaList;
 
     // url to get all products list
-    private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php";
+    private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php/prod1";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -89,7 +89,7 @@ public class Armilist extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(Armilist.this);
-            pDialog.setMessage("Cargando comercios. Por favor espere...");
+            pDialog.setMessage("Cargando Productos. Por favor espere...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -133,7 +133,7 @@ public class Armilist extends AppCompatActivity {
                             String name = c.getString(TAG_NOMBRE);
 
                             // Instancio mi clase modelo con la informacion obtenida
-                            productModel = new ProductModel(name,1,id);
+                            productModel = new ProductModel(name,true,id);
                             //lo meto a la bolsa
                             empresaList[i]=productModel;
                         }
