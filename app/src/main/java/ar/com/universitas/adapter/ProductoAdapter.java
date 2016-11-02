@@ -10,6 +10,7 @@ import ar.com.universitas.clapp.R;
 import ar.com.universitas.model.ProductModel;
 import android.app.Activity;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -22,6 +23,7 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
 
     private ProductModel[] modelItems = null;
     private Context contxt;
+    private View convertView2;
 
     public ProductoAdapter(Context context, ProductModel[] resource) {
         super(context, R.layout.single_post,resource);
@@ -44,6 +46,9 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
         TextView id = (TextView) convertView.findViewById(R.id.single_post_tv_id);
         TextView name = (TextView) convertView.findViewById(R.id.single_post_tv_nombre);
         CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
+
+        //cantidad
+        EditText cantidad = (EditText) convertView.findViewById(R.id.cantidad);
 
         try {
             name.setText(getModelItems()[position].getNombre());
@@ -71,9 +76,9 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
                 Log.i("OnCheckedChangeListener", "OnCheckedChangeListener.onCheckedChanged" + "buttonView");
                 Log.i("OnCheckedChangeListener", (buttonView== null)?"Null":buttonView.toString());
                 Log.i("OnCheckedChangeListener", "OnCheckedChangeListener.onCheckedChanged" + "isChecked:"+ isChecked);
-
-                if (buttonView.getTag()!= null)
-                        getModelItems()[(Integer) buttonView.getTag()].setCheckBoxValue(isChecked);
+                if (buttonView.getTag()!= null){
+                    getModelItems()[(Integer) buttonView.getTag()].setCheckBoxValue(isChecked);
                 }
+        }
     };
 }
