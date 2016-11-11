@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
-        android:onClick="saveListOnMyStore"
-        android:text="Guardar en Mi Almacen" >
+        android:onClick="showResult"
+        android:text="push me" >
     </Button>
 
 </LinearLayout>

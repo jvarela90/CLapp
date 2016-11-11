@@ -1,9 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical"
+    android:weightSum="1">
     <!-- -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="183dp"
+        android:id="@+id/imageView4"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignRight="@+id/username"
+        android:layout_alignEnd="@+id/username"
+        android:src="@drawable/logofinal"
+        android:layout_above="@+id/textView1"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1" />
 
     <TextView
         android:id="@+id/textView1"
@@ -15,7 +27,7 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
@@ -29,44 +41,70 @@
         android:layout_below="@+id/username"
         android:text="Password" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
-
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextView01"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textPassword" />
 
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/nombre"
+        android:layout_centerVertical="true"
+        android:text="Nombre" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/TextView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/apellido"
+        android:layout_below="@+id/apellido"
+        android:text="Apellido" />
+
+    <EditText
+        android:id="@+id/lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView01"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/TextView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/email"
+        android:layout_below="@+id/email"
+        android:text="Email" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextView01"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="0.02" />
+
     <Button
         android:id="@+id/register"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/password"
         android:layout_below="@+id/password"
-        android:text="Register" />
+        android:text="Register"
+        android:layout_weight="0.66" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView4"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignRight="@+id/username"
-        android:layout_alignEnd="@+id/username"
-        android:src="@drawable/logofinal"
-        android:layout_above="@+id/textView1"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignStart="@+id/textView1" />
-
-</RelativeLayout>
+</LinearLayout>

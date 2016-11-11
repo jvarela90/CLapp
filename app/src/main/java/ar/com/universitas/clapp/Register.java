@@ -20,7 +20,8 @@ import java.util.List;
 
 public class Register extends Activity implements OnClickListener{
     private EditText user, pass;
-    private Button  mRegister;
+    private EditText name, lastname, email ;
+    private Button mRegister;
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -52,7 +53,9 @@ public class Register extends Activity implements OnClickListener{
 
         user = (EditText)findViewById(R.id.username);
         pass = (EditText)findViewById(R.id.password);
-
+        name = (EditText)findViewById(R.id.name);
+        lastname = (EditText)findViewById(R.id.lastname);
+        email = (EditText)findViewById(R.id.email);
 
         mRegister = (Button)findViewById(R.id.register);
         mRegister.setOnClickListener(this);
@@ -84,14 +87,23 @@ public class Register extends Activity implements OnClickListener{
         protected String doInBackground(String... args) {
             // TODO Auto-generated method stub
             // Check for success tag
+
             int success;
             String username = user.getText().toString();
             String password = pass.getText().toString();
+            String nameuser = name.getText().toString();
+            String lastnameuser = lastname.getText().toString();
+            String emailuser = email.getText().toString();
+
             try {
                 // Building Parameters
                 List params = new ArrayList();
                 params.add(new BasicNameValuePair("username", username));
                 params.add(new BasicNameValuePair("password", password));
+                params.add(new BasicNameValuePair("nombre", nameuser));
+                params.add(new BasicNameValuePair("apellido", lastnameuser));
+                params.add(new BasicNameValuePair("email", emailuser));
+
 
                 Log.d("request!", "starting");
 

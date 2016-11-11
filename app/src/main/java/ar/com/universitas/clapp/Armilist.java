@@ -8,17 +8,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
-import android.view.View;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import ar.com.universitas.adapter.ProductoAdapter;
 import ar.com.universitas.model.ProductModel;
-import ar.com.universitas.utilities.Utilities;
 
 public class Armilist extends AppCompatActivity {
 
@@ -28,8 +27,10 @@ public class Armilist extends AppCompatActivity {
     // Creating JSON Parser object
     JSONParseraml jParser = new JSONParseraml();
 
+    //ArrayList<HashMap<String, String>> empresaList;
+
     // Creo un arreglo con nuestro objeto producto
-    ProductModel[] productosList, originalList;
+    ProductModel[] empresaList;
 
     // url to get all products list
     private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php/prod1";
@@ -41,13 +42,16 @@ public class Armilist extends AppCompatActivity {
     private static final String TAG_NOMBRE = "nombre";
     // products JSONArray
     JSONArray products = null;
-    //Lista q contiene los productos seleccionables.
+
     ListView lista;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { //Metodo que se llama previo a que se cargue la vista: armilist.xml
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.armilist);
+
+        // Hashmap para el ListView
+        //empresaList = new ArrayList<HashMap<String, String>>();
 
         // Cargar los productos en el Background Thread
         new LoadAllProducts(this).execute();
@@ -58,23 +62,7 @@ public class Armilist extends AppCompatActivity {
 
     }//fin onCreate
 
-    /**
-    * @see
-    * @description: Este método se ejecutará cuando se presione el botón Guardar en mi Almancen
-    */
-    public void saveListOnMyStore(View view) {
 
-        /**TODO - llamar a un metodo para verificar los cambios en las listas.
-         * El metodo podria devolver un JSON con los datos a insertar de la lista
-        */
-        List<ProductModel> listaProductosModificados = Utilities.verifyChangeOnList(originalList,productosList);
-        Log.i("Armilist", "saveListOnMyStore -  Lista de elementos seleccionados");
-        for (ProductModel productModel : listaProductosModificados){
-            Log.i("Producto Modificado - ",productModel.toString());
-        }
-    }
-
-    //Clase interna para ejecutar en background los procesos de datos de los Productos
     class LoadAllProducts extends AsyncTask<String, String, String> {
 
         private Context context;
@@ -130,12 +118,10 @@ public class Armilist extends AppCompatActivity {
                     //Valido q el Json no venga vacio ni nuleado
                     if ((products != null) && (products.length()>0)){
                         //Inicializo el array de productos parseado a objetos del Modelo.
-                        productosList = new ProductModel[products.length()];
-                        //preparo el puntero pero tener una copia de los estados originales de la lista.
-                        originalList = new ProductModel[products.length()];
+                        empresaList = new ProductModel[products.length()];
                         //uso una sola referencia al objeto
                         ProductModel productModel;
-                        ProductModel productModelOriginal;
+
                         for (int i = 0; i < products.length(); i++) {
                             JSONObject c = products.getJSONObject(i);
 
@@ -144,13 +130,11 @@ public class Armilist extends AppCompatActivity {
                             String name = c.getString(TAG_NOMBRE);
 
                             // Instancio mi clase modelo con la informacion obtenida
-                            productModel = new ProductModel(name,false,id);
-                            productModelOriginal = new ProductModel(name,false,id);
+                            productModel = new ProductModel(name,true,id);
                             //lo meto a la bolsa
-                            productosList[i]=productModel;
-                            originalList[i]=productModelOriginal;
+                            empresaList[i]=productModel;
                         }
-                    }// fin del IF
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -170,11 +154,12 @@ public class Armilist extends AppCompatActivity {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ProductoAdapter productoAdapter = new ProductoAdapter(getContext(), productosList);
+                    ProductoAdapter productoAdapter = new ProductoAdapter(getContext(),empresaList);
                     // updating listview
+                    //setListAdapter(adapter);
                     lista.setAdapter(productoAdapter);
                 }
             });
         }
-    }// fin clase interna.
+    }
 }
