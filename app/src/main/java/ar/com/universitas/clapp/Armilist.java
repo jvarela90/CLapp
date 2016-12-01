@@ -9,12 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.view.View;
+
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
 import ar.com.universitas.adapter.ProductoAdapter;
 import ar.com.universitas.model.ProductModel;
@@ -34,13 +35,19 @@ public class Armilist extends AppCompatActivity {
     // url to get all products list
     private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php/prod1";
 
+    // url to get all products list
+    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappma/MiAlmacenbyUsuario.php";
+
+
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCTS = "proding";
+    private static final String TAG_PRODUCTS_STORED = "storing";
     private static final String TAG_ID = "id";
     private static final String TAG_NOMBRE = "nombre";
     // products JSONArray
     JSONArray products = null;
+    JSONArray productStored = null;
     //Lista q contiene los productos seleccionables.
     ListView lista;
 
@@ -74,7 +81,10 @@ public class Armilist extends AppCompatActivity {
         }
     }
 
-    //Clase interna para ejecutar en background los procesos de datos de los Productos
+    /**
+     * @classInner
+     * Clase interna para ejecutar en background los procesos de datos de los Productos
+     */
     class LoadAllProducts extends AsyncTask<String, String, String> {
 
         private Context context;
@@ -115,8 +125,28 @@ public class Armilist extends AppCompatActivity {
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
 
+
+            //Create a new Json for MyStoreOnDB
+            JSONParser jParserMyStore = new JSONParser();
+            // Building Parameters
+            List paramsMyStore = new ArrayList();
+            paramsMyStore.add(new BasicNameValuePair("userID", "8129")); //Harcodeamos este valor mientras lo obtenemos de la session.
+            // getting JSON string from URL
+            JSONObject jsonMyStore = jParserMyStore.makeHttpRequest(URL_MY_STORE_USERID, "POST", paramsMyStore);
+            // Check your log cat for JSON reponse
+            Log.d("My Store by UserdID: ", jsonMyStore.toString());
+
+
             try {
-                // Checking for SUCCESS TAG
+                // Checking for SUCCESS TAG for MyStoreOnDB
+                int successMyStore = jsonMyStore.getInt(TAG_SUCCESS);
+                boolean storedProducts = false;
+                if ((successMyStore == 1)&&((jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED).length() > 0))){
+                    storedProducts = true;
+                    productStored = jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED);
+                }
+
+                // Checking for SUCCESS TAG for products
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
@@ -142,10 +172,19 @@ public class Armilist extends AppCompatActivity {
                             // Storing each json item in variable
                             int id = c.getInt(TAG_ID);
                             String name = c.getString(TAG_NOMBRE);
+                            int quantity = 0;
+                            Boolean checked = false;
+
+                            // TODO verificar q no existe en la lista de los productos del almacen
+                            if(storedProducts){
+                                //TODO no esta pasando la variable por referencia del checked
+                                quantity = getQuantityfromMyStore(checked,id);
+                                checked = (quantity > 0) ? true : false;
+                            }
 
                             // Instancio mi clase modelo con la informacion obtenida
-                            productModel = new ProductModel(name,false,id);
-                            productModelOriginal = new ProductModel(name,false,id);
+                            productModel = new ProductModel(name,checked.booleanValue(),id,quantity);
+                            productModelOriginal = new ProductModel(name,checked.booleanValue(),id,quantity);
                             //lo meto a la bolsa
                             productosList[i]=productModel;
                             originalList[i]=productModelOriginal;
@@ -156,6 +195,27 @@ public class Armilist extends AppCompatActivity {
                 e.printStackTrace();
             }
             return null;
+        }
+
+        private int getQuantityfromMyStore(Boolean checado, int productoID){
+
+            int i = 0;
+            int quantity = 0;
+            try {
+                 while ((!checado.booleanValue())&&(i < productStored.length()))  {
+                     JSONObject jsonObject = productStored.getJSONObject(i);
+                     if (jsonObject.getInt("producto") == productoID){
+                         checado = true;
+                         quantity = jsonObject.getInt("cantidad");
+                     }else{
+                         i++;
+                     }
+                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return 0;
+            }
+            return quantity;
         }
 
         /**
@@ -176,5 +236,5 @@ public class Armilist extends AppCompatActivity {
                 }
             });
         }
-    }// fin clase interna.
+    }/** end Inner class*/
 }
