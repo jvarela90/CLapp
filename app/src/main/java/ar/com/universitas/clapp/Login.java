@@ -45,8 +45,9 @@ public class Login extends Activity implements OnClickListener {
     // La respuesta del JSON es
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+    private static final String TAG_USUARIOID = "usuarioid";
 
-    @Override
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);

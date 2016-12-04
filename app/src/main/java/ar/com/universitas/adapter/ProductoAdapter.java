@@ -9,14 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import ar.com.universitas.clapp.R;
-import ar.com.universitas.model.ProductModel;
-import android.app.Activity;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import ar.com.universitas.clapp.R;
@@ -68,6 +64,7 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
             cb.setChecked(getModelItems()[position].getCheckBoxValue());
 
             //TODO agrego al cantidad pero tengo q verificar q cuando se cheque el check este campo se deshabilite
+
             cantidad.setText(String.valueOf(getModelItems()[position].getCantidad()));
             cantidad.setTag(position);
             cantidad.addTextChangedListener(new TextWatcher() {

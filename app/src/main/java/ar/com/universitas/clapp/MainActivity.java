@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btnarmilist = (Button) findViewById(R.id.btnarmilist);
         btnfutcom = (Button) findViewById(R.id.btnfutcom);
         btnmialm = (Button) findViewById(R.id.btnmialm);
-        btnraprec = (Button) findViewById(R.id.btnarmilist);
+        btnraprec = (Button) findViewById(R.id.btnraprec);
     }
 
 
