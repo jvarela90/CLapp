@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:ems="10" />
+        android:ems="25" />
 
     <TextView
         android:id="@+id/TextView01"
@@ -65,7 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
-        android:ems="10" />
+        android:ems="25"
+        android:digits="ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz"/>
 
     <TextView
         android:id="@+id/TextView4"
@@ -80,7 +81,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextView01"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:ems="25"
+        android:digits="ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz"/>
 
     <TextView
         android:id="@+id/TextView5"
@@ -90,13 +93,13 @@
         android:layout_below="@+id/email"
         android:text="Email" />
 
+
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TextView01"
-        android:layout_centerHorizontal="true"
-        android:layout_weight="0.02" />
+        android:inputType="textEmailAddress"
+        android:ems="10" />
 
     <Button
         android:id="@+id/register"
