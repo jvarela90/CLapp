@@ -9,7 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import ar.com.universitas.clapp.R;
+import ar.com.universitas.model.ProductModel;
+import android.app.Activity;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -40,13 +45,16 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = ((Activity) contxt).getLayoutInflater();
         convertView = inflater.inflate(R.layout.single_post, parent, false);
 
         TextView id = (TextView) convertView.findViewById(R.id.single_post_tv_id);
         TextView name = (TextView) convertView.findViewById(R.id.single_post_tv_nombre);
         CheckBox cb = (CheckBox) convertView.findViewById(R.id.checkBox1);
+
+        //cantidad
+        EditText cantidad = (EditText) convertView.findViewById(R.id.cantidad);
 
         try {
             name.setText(getModelItems()[position].getNombre());
@@ -61,11 +69,16 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
 
             //TODO agrego al cantidad pero tengo q verificar q cuando se cheque el check este campo se deshabilite
             cantidad.setText(String.valueOf(getModelItems()[position].getCantidad()));
+            cantidad.setTag(position);
             cantidad.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     //here is your code
-                    Log.d("onTextChanged: ", "");
+                    Log.i("onTextChanged", s.toString());
+                    if ((s != null)&&(!s.toString().equals(""))){
+                        getModelItems()[position].setCantidad(Integer.valueOf(s.toString()));
+                    }
+
                 }
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count,
