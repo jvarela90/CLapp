@@ -2,6 +2,8 @@ package ar.com.universitas.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,27 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
             cb.setOnCheckedChangeListener(myCheckChangList);
             cb.setTag(position);
             cb.setChecked(getModelItems()[position].getCheckBoxValue());
+
+            //TODO agrego al cantidad pero tengo q verificar q cuando se cheque el check este campo se deshabilite
+            cantidad.setText(String.valueOf(getModelItems()[position].getCantidad()));
+            cantidad.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    //here is your code
+                    Log.d("onTextChanged: ", "");
+                }
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {
+                    // TODO Auto-generated method stub
+                    Log.d("beforeTextChanged: ", "");
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // TODO Auto-generated method stub
+                    Log.d("afterTextChanged: ", "");
+                }
+            });
 
         }catch (Exception e){
             // Logea la exception..

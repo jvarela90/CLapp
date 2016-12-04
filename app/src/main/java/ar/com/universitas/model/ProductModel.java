@@ -2,7 +2,7 @@ package ar.com.universitas.model;
 
 /**
  * Created by Chino on 10/5/2016.
- * @see que esta clase sirva de guia para las buenas practicas.
+ * @see  clase sirva de guia para las buenas practicas.
  * @version esta clase matchea con la tabla PRODING,
  * @Question: deberiamos agregar un campo mas en la tabla para mantener el estado del check?
  *
@@ -15,11 +15,14 @@ public class ProductModel {
     private String nombre;
     private boolean checkBoxValue;
     private int idProduct;
+    private int cantidad;
 
-    public ProductModel(String nombre, boolean checkBoxValue, int idProduct) {
+
+    public ProductModel(String nombre, boolean checkBoxValue, int idProduct, int cantidad) {
         this.nombre = nombre;
         this.checkBoxValue = checkBoxValue;
         this.idProduct = idProduct;
+        this.setCantidad(cantidad);
     }
 
     /**/
@@ -46,4 +49,24 @@ public class ProductModel {
     public void setIdProduct(int idProduct) {
         this.idProduct = idProduct;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    @Override
+    public String toString() {
+
+        String s = "Nombre: "+ this.getNombre()
+                + " Checked: " + this.getCheckBoxValue()
+                + " ID: "+ String.valueOf(this.getIdProduct())
+                + " cantidad: "+ String.valueOf(this.getCantidad());
+        return s;
+    }
+
+
 }
