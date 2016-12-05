@@ -45,7 +45,7 @@ public class Login extends Activity implements OnClickListener {
     // La respuesta del JSON es
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-    private static final String TAG_USUARIOID = "usuarioid";
+    private static final String TAG_USUARIOID = "idusuario";
 
      @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,8 +105,10 @@ public class Login extends Activity implements OnClickListener {
         @Override
         protected String doInBackground(String... args) {
             int success;
+            int idusuario;
             String username = user.getText().toString();
             String password = pass.getText().toString();
+
             try {
                 // Building Parameters
                 List params = new ArrayList();
@@ -123,6 +125,10 @@ public class Login extends Activity implements OnClickListener {
 
                 // json success tag
                 success = json.getInt(TAG_SUCCESS);
+                // json usuarioid tag by SOLDADO obtiene el ID del usuario
+                idusuario = json.getInt(TAG_USUARIOID);
+
+
                 if (success == 1) {
                     Log.d("Login Successful!", json.toString());
                     // save user data
@@ -130,6 +136,7 @@ public class Login extends Activity implements OnClickListener {
                             .getDefaultSharedPreferences(Login.this);
                     Editor edit = sp.edit();
                     edit.putString("username", username);
+                    edit.putInt("idusuario", idusuario);
                     edit.commit();
 
                     Intent i = new Intent(Login.this, MainActivity.class);
