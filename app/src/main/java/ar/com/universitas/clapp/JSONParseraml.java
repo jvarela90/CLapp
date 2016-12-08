@@ -1,8 +1,5 @@
 package ar.com.universitas.clapp;
 
-/**
- * Created by Julian on 18/09/2016.555
- */
 import android.util.Log;
 
 import org.apache.http.HttpEntity;

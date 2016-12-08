@@ -135,14 +135,9 @@ public class Login extends Activity implements OnClickListener {
                     SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp1.edit();
                     editor.putInt("idusuario", idusuario);
+                    editor.putString("username", username);
                     editor.commit();
-                    finish();
 
-                    SharedPreferences sp = PreferenceManager
-                            .getDefaultSharedPreferences(Login.this);
-                    Editor edit = sp.edit();
-                    edit.putString("username", username);
-                    edit.commit();
 
                     Intent i = new Intent(Login.this, MainActivity.class);
                     finish();

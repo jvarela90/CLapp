@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/listAllProducts"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="3dp"
+        android:background="#fff"/>
+
     <!-- -->
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -17,4 +26,5 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/_2"
         android:id="@+id/textView6" />
+
 </LinearLayout>
