@@ -2,6 +2,7 @@ package ar.com.universitas.clapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -128,9 +129,17 @@ public class Armilist extends AppCompatActivity {
 
             //Create a new Json for MyStoreOnDB
             JSONParser jParserMyStore = new JSONParser();
+
+            //SharedPreferences
+            SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
+            int idusuario = sp1.getInt("idusuario" , 0 );
+            String cadena;
+            cadena= Integer.toString(idusuario);
+
             // Building Parameters
             List paramsMyStore = new ArrayList();
-            paramsMyStore.add(new BasicNameValuePair("userID", "8129")); //Harcodeamos este valor mientras lo obtenemos de la session.
+            paramsMyStore.add(new BasicNameValuePair("userID", cadena));
+            //Harcodeamos este valor mientras lo obtenemos de la session.
             // getting JSON string from URL
             JSONObject jsonMyStore = jParserMyStore.makeHttpRequest(URL_MY_STORE_USERID, "POST", paramsMyStore);
             // Check your log cat for JSON reponse

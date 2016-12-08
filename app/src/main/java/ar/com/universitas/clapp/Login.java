@@ -132,11 +132,16 @@ public class Login extends Activity implements OnClickListener {
                 if (success == 1) {
                     Log.d("Login Successful!", json.toString());
                     // save user data
+                    SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp1.edit();
+                    editor.putInt("idusuario", idusuario);
+                    editor.commit();
+                    finish();
+
                     SharedPreferences sp = PreferenceManager
                             .getDefaultSharedPreferences(Login.this);
                     Editor edit = sp.edit();
                     edit.putString("username", username);
-                    edit.putInt("idusuario", idusuario);
                     edit.commit();
 
                     Intent i = new Intent(Login.this, MainActivity.class);
