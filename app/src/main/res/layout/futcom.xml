@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <ListView
-        android:id="@+id/listAllProducts"
+        android:id="@+id/listProductsMisssing"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="3dp"
@@ -20,11 +20,5 @@
         android:id="@+id/btnvolver"
         android:onClick="onClickbtnvolver" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/_2"
-        android:id="@+id/textView6" />
 
 </LinearLayout>

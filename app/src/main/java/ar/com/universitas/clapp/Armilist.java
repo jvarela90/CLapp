@@ -33,10 +33,10 @@ public class Armilist extends AppCompatActivity {
     // Creo un arreglo con nuestro objeto producto
     ProductModel[] productosList, originalList;
 
-    // url to get all products list
+    // url to get all productStored list
     private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php/prod1";
 
-    // url to get all products list
+    // url to get all productStored list
     private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappma/MiAlmacenbyUsuario.php";
 
 
@@ -46,7 +46,7 @@ public class Armilist extends AppCompatActivity {
     private static final String TAG_PRODUCTS_STORED = "storing";
     private static final String TAG_ID = "id";
     private static final String TAG_NOMBRE = "nombre";
-    // products JSONArray
+    // productStored JSONArray
     JSONArray products = null;
     JSONArray productStored = null;
     //Lista q contiene los productos seleccionables.
@@ -132,9 +132,8 @@ public class Armilist extends AppCompatActivity {
 
             //SharedPreferences
             SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
-            int idusuario = sp1.getInt("idusuario" , 0 );
-            String cadena;
-            cadena= Integer.toString(idusuario);
+            int idusuario = sp1.getInt("idusuario" , 0 ); //Usuario Por defecto 8129
+            String cadena = Integer.toString(idusuario);
 
             // Building Parameters
             List paramsMyStore = new ArrayList();
@@ -147,6 +146,8 @@ public class Armilist extends AppCompatActivity {
 
 
             try {
+                //TODO : TAMOS CONTEMPLANDO TODO EL TIEMPO COMO Q EL CHABON YA TIENE UN ALMANCEN,
+                //TODO:  QUE PASA CON LOS USUARIO RECIEN REGISTRADOS?
                 // Checking for SUCCESS TAG for MyStoreOnDB
                 int successMyStore = jsonMyStore.getInt(TAG_SUCCESS);
                 boolean storedProducts = false;
@@ -155,11 +156,11 @@ public class Armilist extends AppCompatActivity {
                     productStored = jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED);
                 }
 
-                // Checking for SUCCESS TAG for products
+                // Checking for SUCCESS TAG for productStored
                 int success = json.getInt(TAG_SUCCESS);
 
                 if (success == 1) {
-                    // products found
+                    // productStored found
                     // Getting Array of Products
                     products = json.getJSONArray(TAG_PRODUCTS);
 
@@ -231,7 +232,7 @@ public class Armilist extends AppCompatActivity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all products
+            // dismiss the dialog after getting all productStored
             pDialog.dismiss();
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {
