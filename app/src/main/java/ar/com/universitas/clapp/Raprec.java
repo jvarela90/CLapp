@@ -20,7 +20,6 @@ public class Raprec extends Activity {
     public void onClickbtnvolver (View view){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
-
     }
 
 /**

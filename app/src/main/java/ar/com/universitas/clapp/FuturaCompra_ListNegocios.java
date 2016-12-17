@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -23,10 +22,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Futcom extends AppCompatActivity {
+/**
+ * Created by Julian on 14/12/2016.
+ */
 
-
-    Button btnIrListaNegocios;
+public class FuturaCompra_ListNegocios extends AppCompatActivity {
 
 
     // Progress Dialog
@@ -37,7 +37,7 @@ public class Futcom extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> productsMissingList;
 
-    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappfc/almacenusuarioordenado.php";
+    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappma/almacenusuarioordenado.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -54,8 +54,7 @@ public class Futcom extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.futcom);
-        btnIrListaNegocios = (Button) findViewById(R.id.productMissingName);
+        setContentView(R.layout.futuracompra_listanegocios);
 
 
         // Hashmap para el ListView
@@ -84,8 +83,8 @@ public class Futcom extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(Futcom.this);
-            pDialog.setMessage("Cargando Productos Faltantes. Por favor espere...");
+            pDialog = new ProgressDialog(FuturaCompra_ListNegocios.this);
+            pDialog.setMessage("Cargando Negocios. Por favor espere...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -158,7 +157,7 @@ public class Futcom extends AppCompatActivity {
                      * Updating parsed JSON data into ListView
                      * */
                     ListAdapter adapter = new SimpleAdapter(
-                            Futcom.this,
+                            FuturaCompra_ListNegocios.this,
                             productsMissingList,
                             R.layout.listview_futuracompra,
                             new String[] {
@@ -180,3 +179,4 @@ public class Futcom extends AppCompatActivity {
         }
     }
 }
+

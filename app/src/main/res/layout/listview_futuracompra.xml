@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:background="#f0f0f0"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="1">
 
-    <TextView
+    <Button
         android:id="@+id/productMissingName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:paddingBottom="2dip"
-        android:padding="10dp"
-        android:textColor="#333"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        android:text="nombre" />
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/renglones"
+        android:text="nombre"
+        android:fontFamily="casual"
+        android:typeface="sans"
+        android:textSize="12pt"
+        android:textStyle="bold|italic"
+        android:visibility="visible"
+        android:onClick="onClickIrListaNegocios"/>
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="id"
         android:id="@+id/productMissingNameID"
         android:visibility="gone" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="cantidad"
+        android:id="@+id/productMissingQTY"
+        android:visibility="gone" />
 
 </LinearLayout>

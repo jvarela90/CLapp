@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
     <ListView
         android:id="@+id/listProductsMisssing"
-        android:layout_width="fill_parent"
+        android:dividerHeight="1dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="3dp"
-        android:background="#fff"/>
-
-    <!-- -->
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/volver"
-        android:id="@+id/btnvolver"
-        android:onClick="onClickbtnvolver" />
-
+        android:headerDividersEnabled="true"
+        android:footerDividersEnabled="true" />
 
 </LinearLayout>
