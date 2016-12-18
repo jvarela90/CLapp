@@ -2,6 +2,7 @@ package ar.com.universitas.clapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ar.com.universitas.adapter.ProductoAdapter;
 import ar.com.universitas.model.ProductModel;
@@ -72,7 +75,7 @@ public class Armilist extends AppCompatActivity {
     */
     public void saveListOnMyStore(View view) {
 
-        /**TODO - llamar a un metodo para verificar los cambios en las listas.
+        /**
          * El metodo podria devolver un JSON con los datos a insertar de la lista
         */
         List<ProductModel> listaProductosModificados = Utilities.verifyChangeOnList(originalList,productosList);
@@ -81,9 +84,12 @@ public class Armilist extends AppCompatActivity {
             Log.i("Producto Modificado - ",productModel.toString());
         }
 
-        //TODO - llamo a la task q se encarga de realizar el request to the URL for refresh myStore.
-        new RefreshProducts(listaProductosModificados).execute();
+        //SharedPreferences
+        SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
+        int idusuario = sp1.getInt("idusuario" , 0 ); //Usuario Por defecto 8129
 
+        //Call to the PHP by Rest
+      new RefreshProducts(listaProductosModificados, idusuario, this).execute();
     }
 
     /**
@@ -188,16 +194,31 @@ public class Armilist extends AppCompatActivity {
                             int quantity = 0;
                             Boolean checked = false;
 
-                            // TODO verificar q no existe en la lista de los productos del almacen
+                            //Por defecto es un Insert para el caso q sea la primera vez que el chabon inicia session.
+                            String operacion = "I";
+
+                            //Mapeo las propiedades del producto encontrado
+                            Map propiedadesProducto;
                             if(storedProducts){
-                                //TODO no esta pasando la variable por referencia del checked
-                                quantity = getQuantityfromMyStore(checked,id);
-                                checked = (quantity > 0) ? true : false;
+
+                                propiedadesProducto = getQuantityfromMyStore(id);
+
+                                if (propiedadesProducto.get("quantity") != null){
+                                    quantity = (int) propiedadesProducto.get("quantity");
+                                    checked = (quantity > 0) ? true : false;
+                                }
+
+                                if (propiedadesProducto.get("tipoOperacion")!= null){
+                                    operacion = (String)propiedadesProducto.get("tipoOperacion");
+                                }
+
+                                // Clear all values.
+                                propiedadesProducto.clear();
                             }
 
                             // Instancio mi clase modelo con la informacion obtenida
-                            productModel = new ProductModel(name,checked.booleanValue(),id,quantity);
-                            productModelOriginal = new ProductModel(name,checked.booleanValue(),id,quantity);
+                            productModel = new ProductModel(name,checked.booleanValue(),id,quantity,operacion);
+                            productModelOriginal = new ProductModel(name,checked.booleanValue(),id,quantity,operacion);
                             //lo meto a la bolsa
                             productosList[i]=productModel;
                             originalList[i]=productModelOriginal;
@@ -210,25 +231,29 @@ public class Armilist extends AppCompatActivity {
             return null;
         }
 
-        private int getQuantityfromMyStore(Boolean checado, int productoID){
+        private Map getQuantityfromMyStore(int productoID){
 
             int i = 0;
-            int quantity = 0;
+            Map atributosProducto = new HashMap();
+            Boolean checado = false;
+
             try {
                  while ((!checado.booleanValue())&&(i < productStored.length()))  {
                      JSONObject jsonObject = productStored.getJSONObject(i);
                      if (jsonObject.getInt("producto") == productoID){
                          checado = true;
-                         quantity = jsonObject.getInt("cantidad");
+                         // Add some atributtes .
+                         atributosProducto.put("quantity", jsonObject.getInt("cantidad"));
+                         atributosProducto.put("tipoOperacion", "U");
                      }else{
                          i++;
                      }
                  }
             } catch (JSONException e) {
                 e.printStackTrace();
-                return 0;
+                return atributosProducto;
             }
-            return quantity;
+            return atributosProducto;
         }
 
         /**
