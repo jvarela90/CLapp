@@ -13,39 +13,35 @@
 
 <!-- -->
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="222dp"
+        android:layout_width="match_parent"
+        android:layout_height="219dp"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal"
         android:contentDescription=""
         android:src="@drawable/logofinal"
-        tools:ignore="ContentDescription"
-        android:scaleType="fitXY" />
+        android:layout_weight="0.41"
+        tools:ignore="ContentDescription,InefficientWeight" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Material"
         android:text="@string/permite_agregar_productos_ingredientes_a_tu_lista"
         android:id="@+id/textView"
-        android:gravity="center"
-        android:textStyle="bold"/>
+        android:gravity="center" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/armar_mi_lista"
         android:id="@+id/btnarmilist"
-        android:textColor="@android:color/background_light"
         android:layout_gravity="center_horizontal"
-        android:onClick="OnClickbtnarmitist"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:backgroundTint="@color/colorPrimaryDark"
-        tools:ignore="UnusedAttribute" />
+        android:onClick="OnClickbtnarmitist"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Material"
         android:text="@string/permite_ver_tu_almacen_y_quitar_productos"
         android:id="@+id/textView2"
         android:gravity="center" />
@@ -56,12 +52,7 @@
         android:text="@string/mi_almacen"
         android:id="@+id/btnmialm"
         android:layout_gravity="center_horizontal"
-        android:onClick="OnClickbtnmialm"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/background_light"
-        android:backgroundTint="@color/colorPrimaryDark"
-        tools:targetApi="lollipop" />
+        android:onClick="OnClickbtnmialm" />
 
     <TextView
         android:layout_width="match_parent"
@@ -69,8 +60,7 @@
         android:textAppearance="@android:style/TextAppearance.Material"
         android:text="@string/listado_de_productos_en_tu_almacen_sin_stock"
         android:id="@+id/textView3"
-        android:gravity="center"
-        tools:ignore="NewApi" />
+        android:gravity="center" />
 
     <Button
         android:layout_width="match_parent"
@@ -78,12 +68,7 @@
         android:text="@string/futura_compra"
         android:id="@+id/btnfutcom"
         android:layout_gravity="center_vertical"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/background_light"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:onClick="OnClickbtnfutcom"
-        tools:targetApi="lollipop" />
+        android:onClick="OnClickbtnfutcom" />
 
     <TextView
         android:layout_width="match_parent"
@@ -91,8 +76,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Body1"
         android:text="@string/acceso_a_recetas_rapidas_y_sencillas"
         android:id="@+id/textView4"
-        android:gravity="center"
-        tools:ignore="NewApi" />
+        android:gravity="center"/>
 
     <Button
         android:layout_width="match_parent"
@@ -100,11 +84,6 @@
         android:text="@string/rapi_receta"
         android:id="@+id/btnraprec"
         android:layout_gravity="center_vertical"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/background_light"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:onClick="OnClickbtnraprec"
-        tools:targetApi="lollipop" />
+        android:onClick="OnClickbtnraprec" />
 
 </LinearLayout>
