@@ -10,6 +10,11 @@ import ar.com.universitas.model.ProductModel;
 
 public class Utilities {
 
+    /**
+     * @see this Metodo compara la lista de productos modificada por el usuario contra la misma
+     * lista original, de esta manera verificamos los cambios
+     *
+     * */
     public static List verifyChangeOnList (ProductModel[] original, ProductModel[] modificada){
 
         //Lista Productos de salida;
@@ -28,10 +33,12 @@ public class Utilities {
 
                 //Si entra a este if es por q el check cambio o cambio la cantidad...entonces
                 //Si el checked es false en la modificada indica q se cambio respecto a la orginal, quiere decir
-                if (!modificada[i].getCheckBoxValue()){
-                    productoModificado = new ProductModel(modificada[i].getNombre(),modificada[i].getCheckBoxValue(), modificada[i].getIdProduct(), 0);
+                // que ese producto tendra 0 cantidad por q ya no es requerido, entonces se le asigna un cantidad de cero -------------------------|
+                //                                                                                                                                 |
+                if (!modificada[i].getCheckBoxValue()){//                                                                                          |
+                    productoModificado = new ProductModel(modificada[i].getNombre(),modificada[i].getCheckBoxValue(), modificada[i].getIdProduct(), 0, modificada[i].getOperation());
                 }else {
-                    productoModificado = new ProductModel(modificada[i].getNombre(),modificada[i].getCheckBoxValue(), modificada[i].getIdProduct(), modificada[i].getCantidad());
+                    productoModificado = new ProductModel(modificada[i].getNombre(),modificada[i].getCheckBoxValue(), modificada[i].getIdProduct(), modificada[i].getCantidad(),modificada[i].getOperation());
                 }
 
                 listaProductosModicados.add(productoModificado);
