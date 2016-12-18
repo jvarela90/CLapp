@@ -31,4 +31,11 @@
         android:maxLength="2"
         android:id="@+id/cantidad" />
 
+    <TextView
+        android:id="@+id/operationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone" />
+
 </LinearLayout>

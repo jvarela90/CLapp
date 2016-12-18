@@ -52,6 +52,9 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
         //cantidad
         EditText cantidad = (EditText) convertView.findViewById(R.id.cantidad);
 
+        //Operacion
+        TextView operacion = (TextView) convertView.findViewById(R.id.operationType);
+
         try {
             name.setText(getModelItems()[position].getNombre());
             //TODO : Ojo con este valor si se parsea y viene null.
@@ -89,6 +92,8 @@ public class ProductoAdapter extends ArrayAdapter<ProductModel>{
                     Log.d("afterTextChanged: ", "");
                 }
             });
+            //setea la operacion.
+            operacion.setText(getModelItems()[position].getOperation());
 
         }catch (Exception e){
             // Logea la exception..
