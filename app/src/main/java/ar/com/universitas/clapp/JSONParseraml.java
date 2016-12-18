@@ -12,7 +12,7 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import org.apache.http.entity.StringEntity;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -95,6 +95,58 @@ public class JSONParseraml {
 
         // return JSON String
         return jObj;
+    }
+
+    public JSONObject makeHttpRequest(String url, String method,
+                                      JSONObject params) {
+
+        try {
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(url);
+
+            // 1. convert JSONObject to JSON to String
+            String jsonString = params.toString();
+
+            // 2. set json to StringEntity
+            StringEntity stringEntity = new StringEntity(jsonString);
+
+            // 3. Set some headers to inform server about the type of the content
+            //httpPost.setHeader("Accept", "application/json");
+            //httpPost.setHeader("Content-type", "application/json");
+
+            httpPost.setEntity(stringEntity);
+            HttpResponse httpResponse = null;
+            // 4. browsea el request
+            httpResponse = httpClient.execute(httpPost);
+
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
+
+            //5. parsear response
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            is.close();
+            json = sb.toString();
+
+            //6.Parseo a Json
+            jObj = new JSONObject(json);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+
+        // return JSON String
+        return jObj;
+    }
+
+
 
     }
-}

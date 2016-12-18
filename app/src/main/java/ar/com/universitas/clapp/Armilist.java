@@ -20,6 +20,7 @@ import java.util.List;
 
 import ar.com.universitas.adapter.ProductoAdapter;
 import ar.com.universitas.model.ProductModel;
+import ar.com.universitas.tasks.RefreshProducts;
 import ar.com.universitas.utilities.Utilities;
 
 public class Armilist extends AppCompatActivity {
@@ -33,12 +34,11 @@ public class Armilist extends AppCompatActivity {
     // Creo un arreglo con nuestro objeto producto
     ProductModel[] productosList, originalList;
 
-    // url to get all productStored list
+    // url to get all products list
     private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php/prod1";
 
     // url to get all productStored list
     private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappma/MiAlmacenbyUsuario.php";
-
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -80,6 +80,10 @@ public class Armilist extends AppCompatActivity {
         for (ProductModel productModel : listaProductosModificados){
             Log.i("Producto Modificado - ",productModel.toString());
         }
+
+        //TODO - llamo a la task q se encarga de realizar el request to the URL for refresh myStore.
+        new RefreshProducts(listaProductosModificados).execute();
+
     }
 
     /**
@@ -125,7 +129,6 @@ public class Armilist extends AppCompatActivity {
             JSONObject json = jParser.makeHttpRequest(url_all_empresas, "GET", params);
             // Check your log cat for JSON reponse
             Log.d("All Products: ", json.toString());
-
 
             //Create a new Json for MyStoreOnDB
             JSONParser jParserMyStore = new JSONParser();
