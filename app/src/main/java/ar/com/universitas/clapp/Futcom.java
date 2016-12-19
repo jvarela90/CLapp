@@ -144,6 +144,7 @@ public class Futcom extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("JSONException: ", e.getMessage());
+
             }
             return null;
         }
