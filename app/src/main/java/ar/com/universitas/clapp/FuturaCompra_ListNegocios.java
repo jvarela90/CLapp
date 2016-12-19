@@ -1,14 +1,11 @@
 package ar.com.universitas.clapp;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -35,19 +32,19 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> productsMissingList;
+    ArrayList<HashMap<String, String>> storeMissingList;
 
-    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappma/almacenusuarioordenado.php";
+    private static String URL_LIST_STORE = "http://clappuniv.esy.es/clappfc/listanegocios.php";
 
     // JSON Node names
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS_STORED = "storing";
-    private static final String TAG_PRODUCT_ID = "producto";
-    private static final String TAG_QTY = "cantidad";
-    private static final String TAG_NAME = "nombre";
+    private static final String TAG_SUCCESSS = "success";
+    private static final String TAG_PRODUCTS_STOREDS = "store";
+    private static final String TAG_PRODUCT_IDS = "nombretienda";
+    private static final String TAG_QTYS = "direccion";
+    private static final String TAG_NAMES = "horario";
 
     // productStored JSONArray
-    JSONArray productStored = null;
+    JSONArray localStored = null;
 
     ListView lista;
 
@@ -58,21 +55,17 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
 
 
         // Hashmap para el ListView
-        productsMissingList = new ArrayList<HashMap<String, String>>();
+        storeMissingList = new ArrayList<HashMap<String, String>>();
 
 
         // Cargar los productos en el Background Thread
         new LoadAllProducts().execute();
-        lista = (ListView) findViewById(R.id.listProductsMisssing);
+        lista = (ListView) findViewById(R.id.listStoreMisssing);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
     }//fin onCreate
-
-    public void onClickIrListaNegocios (View view){
-        Intent i = new Intent(this,FuturaCompra_ListNegocios.class);
-        startActivity(i);}
 
 
     class LoadAllProducts extends AsyncTask<String, String, String> {
@@ -95,46 +88,45 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
          * */
         protected String doInBackground(String... args) {
             //Create a new Json for MyStoreOnDB
-            JSONParser jParserMyStore = new JSONParser();
+            JSONParser jParserMyStores = new JSONParser();
 
             //SharedPreferences
-            SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
-            int idusuario = sp1.getInt("idusuario" , 0 );
-            String cadena = Integer.toString(idusuario);
+            //SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
+            //int idusuario = sp1.getInt("idusuario" , 0 );
+            //String cadena = Integer.toString(idusuario);
 
             // Building Parameters
-            List paramsMyStore = new ArrayList();
-            paramsMyStore.add(new BasicNameValuePair("userID", cadena));
+            List paramsListStore = new ArrayList();
+            paramsListStore.add(new BasicNameValuePair("idproducto", "4"));
 
             // getting JSON string from URL
-            JSONObject jsonMyStore = jParserMyStore.makeHttpRequest(URL_MY_STORE_USERID, "POST", paramsMyStore);
+            JSONObject jsonMyStores = jParserMyStores.makeHttpRequest(URL_LIST_STORE, "POST", paramsListStore);
             // Check your log cat for JSON reponse
-            Log.d("My Store by UserdID: ", jsonMyStore.toString());
+            Log.d("My Store by UserdID: ", jsonMyStores.toString());
 
             try {
                 // Checking for SUCCESS TAG for MyStoreOnDB
-                int successMyStore = jsonMyStore.getInt(TAG_SUCCESS);
+                int successMyStore = jsonMyStores.getInt(TAG_SUCCESSS);
                 boolean storedProducts = false;
-                if ((successMyStore == 1)&&((jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED).length() > 0))){
+                if ((successMyStore == 1)&&((jsonMyStores.getJSONArray(TAG_PRODUCTS_STOREDS).length() > 0))){
                     storedProducts = true;
-                    productStored = jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED);
+                    localStored = jsonMyStores.getJSONArray(TAG_PRODUCTS_STOREDS);
 
-                    for (int i = 0; i < productStored.length(); i++) {
-                        JSONObject c = productStored.getJSONObject(i);
+                    for (int i = 0; i < localStored.length(); i++) {
+                        JSONObject c = localStored.getJSONObject(i);
 
                         // Storing each json item in variable
-                        String productId = c.getString(TAG_PRODUCT_ID);
-                        int quantity = c.getInt(TAG_QTY);
-                        String productName = c.getString(TAG_NAME);
+                        String nombrelocal = c.getString(TAG_PRODUCT_IDS);
+                        String direccion = c.getString(TAG_QTYS);
+                        String horario = c.getString(TAG_NAMES);
                         // Si la cantidad de producto es cero lo mando dentro de la lista de faltantes.
-                        if (quantity <= 1){
-                            HashMap map = new HashMap();
-                            map.put(TAG_NAME, productName);
-                            map.put(TAG_QTY, quantity);
-                            map.put(TAG_PRODUCT_ID,productId);
 
-                            productsMissingList.add(map);
-                        }
+                            HashMap map = new HashMap();
+                            map.put(TAG_NAMES, horario);
+                            map.put(TAG_QTYS, direccion);
+                            map.put(TAG_PRODUCT_IDS,nombrelocal);
+
+                            storeMissingList.add(map);
 
                     }
                 }
@@ -158,17 +150,17 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
                      * */
                     ListAdapter adapter = new SimpleAdapter(
                             FuturaCompra_ListNegocios.this,
-                            productsMissingList,
-                            R.layout.listview_futuracompra,
+                            storeMissingList,
+                            R.layout.listanegocios,
                             new String[] {
-                                    TAG_NAME,
-                                    TAG_PRODUCT_ID,
-                                    TAG_QTY,
+                                    TAG_NAMES,
+                                    TAG_PRODUCT_IDS,
+                                    TAG_QTYS,
                             },
                             new int[] {
-                                    R.id.productMissingName,
-                                    R.id.productMissingNameID,
-                                    R.id.productMissingQTY,
+                                    R.id.storeMissingName,
+                                    R.id.storeMissingNameID,
+                                    R.id.storeMissingQTY,
                             });
                     // updating listview
                     //setListAdapter(adapter);
