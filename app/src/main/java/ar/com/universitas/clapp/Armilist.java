@@ -2,20 +2,20 @@ package ar.com.universitas.clapp;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ListView;
 import android.view.View;
+import android.widget.ListView;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +113,7 @@ public class Armilist extends AppCompatActivity {
         }
 
         /**
-         * Antes de empezar el background thread Show Progress Dialog
+         * Antes de empezar el background thread Show Pro gress Dialog
          * */
         @Override
         protected void onPreExecute() {

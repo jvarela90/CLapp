@@ -29,7 +29,7 @@ public class Futcom extends AppCompatActivity {
     Button btnIrListaNegocios;
 
 
-    // Progress Dialog
+    // Progress Dia log
     private ProgressDialog pDialog;
 
     // Creating JSON Parser object
