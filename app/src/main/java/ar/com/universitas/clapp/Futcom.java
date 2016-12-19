@@ -92,16 +92,18 @@ public class Futcom extends AppCompatActivity {
         }
 
         /**
-         * obteniendo todos los productos0
+         * obteniendo todos los productos
          * */
         protected String doInBackground(String... args) {
             //Create a new Json for MyStoreOnDB
-            JSONParser jParserMyStore = new JSONParser();
+            JSONParserFuturaCompra jParserMyStore = new JSONParserFuturaCompra();
 
             //SharedPreferences
             SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
             int idusuario = sp1.getInt("idusuario" , 0 );
             String cadena = Integer.toString(idusuario);
+
+            Log.d("My UserdID: ", cadena);
 
             // Building Parameters
             List paramsMyStore = new ArrayList();
@@ -115,25 +117,25 @@ public class Futcom extends AppCompatActivity {
             try {
                 // Checking for SUCCESS TAG for MyStoreOnDB
                 int successMyStore = jsonMyStore.getInt(TAG_SUCCESS);
+                Log.d("successMyStore: ", String.valueOf(successMyStore));
+
                 boolean storedProducts = false;
                 if ((successMyStore == 1)&&((jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED).length() > 0))){
                     storedProducts = true;
                     productStored = jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED);
 
+                    Log.d("jsonMyStore -length: ", String.valueOf(productStored.length()));
+
                     for (int i = 0; i < productStored.length(); i++) {
                         JSONObject c = productStored.getJSONObject(i);
 
-                        // Storing each json item in variable
-                        String productId = c.getString(TAG_PRODUCT_ID);
-                        int quantity = c.getInt(TAG_QTY);
-                        String productName = c.getString(TAG_NAME);
-                        // Si la cantidad de producto es cero lo mando dentro de la lista de faltantes.
-                        if (quantity <= 1){
+                        if ((c.getString(TAG_NAME) != null)&&(!c.getString(TAG_NAME).equals(""))
+                                &&(c.getString(TAG_PRODUCT_ID)!= null)
+                                &&(!c.getString(TAG_PRODUCT_ID).equals(""))) {
                             HashMap map = new HashMap();
-                            map.put(TAG_NAME, productName);
-                            map.put(TAG_QTY, quantity);
-                            map.put(TAG_PRODUCT_ID,productId);
-
+                            map.put(TAG_NAME, c.getString(TAG_NAME));
+                            map.put(TAG_QTY, c.getInt(TAG_QTY));
+                            map.put(TAG_PRODUCT_ID, c.getString(TAG_PRODUCT_ID));
                             productsMissingList.add(map);
                         }
 
@@ -141,6 +143,7 @@ public class Futcom extends AppCompatActivity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.i("JSONException: ", e.getMessage());
             }
             return null;
         }
@@ -173,6 +176,7 @@ public class Futcom extends AppCompatActivity {
                             });
                     // updating listview
                     //setListAdapter(adapter);
+                    Log.i("onPostExecute: ", "se setea adapter ");
                     lista.setAdapter(adapter);
 
                 }
