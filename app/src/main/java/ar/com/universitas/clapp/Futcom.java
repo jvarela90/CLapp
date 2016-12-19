@@ -131,7 +131,8 @@ public class Futcom extends AppCompatActivity {
 
                         if ((c.getString(TAG_NAME) != null)&&(!c.getString(TAG_NAME).equals(""))
                                 &&(c.getString(TAG_PRODUCT_ID)!= null)
-                                &&(!c.getString(TAG_PRODUCT_ID).equals(""))) {
+                                &&(!c.getString(TAG_PRODUCT_ID).equals("")))
+                        {
                             HashMap map = new HashMap();
                             map.put(TAG_NAME, c.getString(TAG_NAME));
                             map.put(TAG_QTY, c.getInt(TAG_QTY));
