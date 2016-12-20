@@ -20,14 +20,14 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class JSONParserMiAlmacenFuturaCompra {
+public class JSONParserFuturaCompra {
 
         static InputStream is = null;
         static JSONObject jObj = null;
         static String json = "";
 
         // constructor
-        public JSONParserMiAlmacenFuturaCompra() {
+        public JSONParserFuturaCompra() {
 
         }
 
@@ -83,7 +83,7 @@ public class JSONParserMiAlmacenFuturaCompra {
                 is.close();
                 json = sb.toString();
             } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
+                Log.e("Buffer Errror", "Error converting result " + e.toString());
             }
 
             // try parse the string to a JSON object
