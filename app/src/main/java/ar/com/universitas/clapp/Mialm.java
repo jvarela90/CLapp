@@ -10,7 +10,7 @@ import android.widget.Button;
  *
  *
  *123
- * ESTO ES PARA PROBAR EL COMMITEO para Cesar
+ * ESTO ES PARA O para Cesar
  */
 public class Mialm extends Activity {
     Button btnvolver;
