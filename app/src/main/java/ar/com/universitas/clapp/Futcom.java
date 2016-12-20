@@ -32,7 +32,7 @@ public class Futcom extends AppCompatActivity {
     // Progress Dialog
     private ProgressDialog pDialog;
 
-    // Creating JSON Parser object
+    // Creating JSON object
     JSONParser jParser = new JSONParser();
 
     ArrayList<HashMap<String, String>> productsMissingList;
