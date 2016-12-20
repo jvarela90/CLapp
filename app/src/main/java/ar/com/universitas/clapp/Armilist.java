@@ -153,10 +153,7 @@ public class Armilist extends AppCompatActivity {
             // Check your log cat for JSON reponse
             Log.d("My Store by UserdID: ", jsonMyStore.toString());
 
-
             try {
-                //TODO : TAMOS CONTEMPLANDO TODO EL TIEMPO COMO Q EL CHABON YA TIENE UN ALMANCEN,
-                //TODO:  QUE PASA CON LOS USUARIO RECIEN REGISTRADOS?
                 // Checking for SUCCESS TAG for MyStoreOnDB
                 int successMyStore = jsonMyStore.getInt(TAG_SUCCESS);
                 boolean storedProducts = false;
@@ -205,7 +202,8 @@ public class Armilist extends AppCompatActivity {
 
                                 if (propiedadesProducto.get("quantity") != null){
                                     quantity = (int) propiedadesProducto.get("quantity");
-                                    checked = (quantity > 0) ? true : false;
+                                    //checked = (quantity > 0) ? true : false;
+                                    checked = true;
                                 }
 
                                 if (propiedadesProducto.get("tipoOperacion")!= null){
