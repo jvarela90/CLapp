@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="id"
+        android:text="idproducto"
         android:id="@+id/productMissingNameID"
         android:visibility="gone" />
     <TextView
