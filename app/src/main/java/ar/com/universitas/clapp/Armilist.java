@@ -28,7 +28,7 @@ import ar.com.universitas.utilities.Utilities;
 
 public class Armilist extends AppCompatActivity {
 
-    // Progress Dialog
+    // ProgressDialog
     private ProgressDialog pDialog;
 
     // Creating JSON Parser object
