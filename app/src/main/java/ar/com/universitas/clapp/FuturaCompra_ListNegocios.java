@@ -101,11 +101,11 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
 
             // getting JSON string from URL
             JSONObject jsonMyStores = jParserMyStores.makeHttpRequest(URL_LIST_STORE, "POST", paramsListStore);
-            // Check your log cat for JSON reponse
+            // Check your log cat for JSON
             Log.d("My Store by UserdID: ", jsonMyStores.toString());
 
             try {
-                // Checking for SUCCESS TAG for MyStoreOnDB
+                // Checking for SUCCESS TAG forMyStoreOnDB
                 int successMyStore = jsonMyStores.getInt(TAG_SUCCESSS);
                 boolean storedProducts = false;
                 if ((successMyStore == 1)&&((jsonMyStores.getJSONArray(TAG_PRODUCTS_STOREDS).length() > 0))){

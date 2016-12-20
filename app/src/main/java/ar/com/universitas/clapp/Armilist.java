@@ -28,7 +28,7 @@ import ar.com.universitas.utilities.Utilities;
 
 public class Armilist extends AppCompatActivity {
 
-    // Progress Dialog
+    // ProgressDialog
     private ProgressDialog pDialog;
 
     // Creating JSON Parser object
@@ -215,8 +215,6 @@ public class Armilist extends AppCompatActivity {
                                 // Clear all values.
                                 propiedadesProducto.clear();
                             }
-
-                            // Instancio mi clase modelo con la informacion obtenida
                             productModel = new ProductModel(name,checked.booleanValue(),id,quantity,operacion);
                             productModelOriginal = new ProductModel(name,checked.booleanValue(),id,quantity,operacion);
                             //lo meto a la bolsa
