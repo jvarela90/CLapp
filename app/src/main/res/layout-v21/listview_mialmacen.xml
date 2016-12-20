@@ -3,22 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
-    <!-- -->
-
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="" />
 
     <TextView
-        android:id="@+id/single_post_tv_nombre"
+        android:id="@+id/nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="nombre" />
 
     <TextView
-        android:id="@+id/single_post_tv_id"
+        android:id="@+id/idProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="id"
@@ -29,11 +22,17 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:maxLength="2"
-        android:id="@+id/cantidad"
-        android:visibility="gone"/>
+        android:id="@+id/cantidad" />
 
     <TextView
         android:id="@+id/operationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""

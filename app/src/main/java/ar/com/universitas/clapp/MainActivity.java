@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OnClickbtnmialm (View view){
-        Intent i = new Intent(this,Mialm.class);
+        Intent i = new Intent(this,MiAlmacen.class);
         startActivity(i);
 
     }
