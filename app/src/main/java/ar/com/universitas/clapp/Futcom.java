@@ -1,41 +1,34 @@
 package ar.com.universitas.clapp;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ListAdapter;
+import android.content.Context;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-
+import ar.com.universitas.adapter.FuturaCompraAdapter;
+import ar.com.universitas.model.ProductModel;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Futcom extends AppCompatActivity {
 
-
-    Button btnIrListaNegocios;
-
-
     // Progress Dialog
     private ProgressDialog pDialog;
+    Button btnIrListaNegocios;
 
-    // Creating JSON Parser object
+    // Creating JSON object
     JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, String>> productsMissingList;
+    ProductModel[] productsMissingList;
 
     private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappfc/almacenusuarioordenado.php";
 
@@ -57,13 +50,8 @@ public class Futcom extends AppCompatActivity {
         setContentView(R.layout.futcom);
         btnIrListaNegocios = (Button) findViewById(R.id.productMissingName);
 
-
-        // Hashmap para el ListView
-        productsMissingList = new ArrayList<HashMap<String, String>>();
-
-
         // Cargar los productos en el Background Thread
-        new LoadAllProducts().execute();
+        new LoadMissingProducts(this).execute();
         lista = (ListView) findViewById(R.id.listProductsMisssing);
 
         ActionBar actionBar = getSupportActionBar();
@@ -71,12 +59,22 @@ public class Futcom extends AppCompatActivity {
 
     }//fin onCreate
 
-    public void onClickIrListaNegocios (View view){
-        Intent i = new Intent(this,FuturaCompra_ListNegocios.class);
-        startActivity(i);}
 
+    class LoadMissingProducts extends AsyncTask<String, String, String> {
 
-    class LoadAllProducts extends AsyncTask<String, String, String> {
+        private Context context;
+
+        public LoadMissingProducts(Context context) {
+            this.context = context;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public void setContext(Context context) {
+            this.context = context;
+        }
 
         /**
          * Antes de empezar el background thread Show Progress Dialog
@@ -92,16 +90,18 @@ public class Futcom extends AppCompatActivity {
         }
 
         /**
-         * obteniendo todos los productos0
+         * obteniendo todos los productos
          * */
         protected String doInBackground(String... args) {
             //Create a new Json for MyStoreOnDB
-            JSONParser jParserMyStore = new JSONParser();
+            JSONParserFuturaCompra jParserMyStore = new JSONParserFuturaCompra();
 
             //SharedPreferences
             SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
             int idusuario = sp1.getInt("idusuario" , 0 );
             String cadena = Integer.toString(idusuario);
+
+            Log.d("My UserdID: ", cadena);
 
             // Building Parameters
             List paramsMyStore = new ArrayList();
@@ -115,32 +115,35 @@ public class Futcom extends AppCompatActivity {
             try {
                 // Checking for SUCCESS TAG for MyStoreOnDB
                 int successMyStore = jsonMyStore.getInt(TAG_SUCCESS);
+                Log.d("successMyStore: ", String.valueOf(successMyStore));
+
                 boolean storedProducts = false;
                 if ((successMyStore == 1)&&((jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED).length() > 0))){
                     storedProducts = true;
                     productStored = jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED);
 
+                    Log.d("jsonMyStore -length: ", String.valueOf(productStored.length()));
+
+                    productsMissingList = new ProductModel[productStored.length()];
+                    ProductModel productModel;
+
                     for (int i = 0; i < productStored.length(); i++) {
                         JSONObject c = productStored.getJSONObject(i);
 
-                        // Storing each json item in variable
-                        String productId = c.getString(TAG_PRODUCT_ID);
-                        int quantity = c.getInt(TAG_QTY);
-                        String productName = c.getString(TAG_NAME);
-                        // Si la cantidad de producto es cero lo mando dentro de la lista de faltantes.
-                        if (quantity <= 1){
-                            HashMap map = new HashMap();
-                            map.put(TAG_NAME, productName);
-                            map.put(TAG_QTY, quantity);
-                            map.put(TAG_PRODUCT_ID,productId);
-
-                            productsMissingList.add(map);
+                        if ((c.getString(TAG_NAME) != null)&&(!c.getString(TAG_NAME).equals(""))
+                                &&(c.getString(TAG_PRODUCT_ID)!= null)
+                                &&(!c.getString(TAG_PRODUCT_ID).equals("")))
+                        {
+                            productModel = new ProductModel(c.getString(TAG_NAME),Boolean.TRUE,c.getInt(TAG_PRODUCT_ID),c.getInt(TAG_QTY),"U");
+                            productsMissingList[i]=productModel;
                         }
 
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.i("JSONException: ", e.getMessage());
+
             }
             return null;
         }
@@ -157,23 +160,9 @@ public class Futcom extends AppCompatActivity {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(
-                            Futcom.this,
-                            productsMissingList,
-                            R.layout.listview_futuracompra,
-                            new String[] {
-                                    TAG_NAME,
-                                    TAG_PRODUCT_ID,
-                                    TAG_QTY,
-                            },
-                            new int[] {
-                                    R.id.productMissingName,
-                                    R.id.productMissingNameID,
-                                    R.id.productMissingQTY,
-                            });
+                    FuturaCompraAdapter futuraCompraAdapter = new FuturaCompraAdapter(getContext(), productsMissingList);
                     // updating listview
-                    //setListAdapter(adapter);
-                    lista.setAdapter(adapter);
+                    lista.setAdapter(futuraCompraAdapter);
 
                 }
             });

@@ -1,6 +1,7 @@
 package ar.com.universitas.clapp;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -91,13 +92,12 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
             JSONParser jParserMyStores = new JSONParser();
 
             //SharedPreferences
-            //SharedPreferences sp1 = getSharedPreferences("perfilusuario",MODE_PRIVATE);
-            //int idusuario = sp1.getInt("idusuario" , 0 );
-            //String cadena = Integer.toString(idusuario);
+            SharedPreferences sp1 = getSharedPreferences("idproducto",MODE_PRIVATE);
+            String idprod = sp1.getString("idprod" , "0" );
 
             // Building Parameters
             List paramsListStore = new ArrayList();
-            paramsListStore.add(new BasicNameValuePair("idproducto", "4"));
+            paramsListStore.add(new BasicNameValuePair("idproducto", idprod));
 
             // getting JSON string from URL
             JSONObject jsonMyStores = jParserMyStores.makeHttpRequest(URL_LIST_STORE, "POST", paramsListStore);
@@ -121,12 +121,12 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
                         String horario = c.getString(TAG_NAMES);
                         // Si la cantidad de producto es cero lo mando dentro de la lista de faltantes.
 
-                            HashMap map = new HashMap();
-                            map.put(TAG_NAMES, horario);
-                            map.put(TAG_QTYS, direccion);
-                            map.put(TAG_PRODUCT_IDS,nombrelocal);
+                        HashMap map = new HashMap();
+                        map.put(TAG_NAMES, horario);
+                        map.put(TAG_QTYS, direccion);
+                        map.put(TAG_PRODUCT_IDS,nombrelocal);
 
-                            storeMissingList.add(map);
+                        storeMissingList.add(map);
 
                     }
                 }
@@ -171,4 +171,3 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
         }
     }
 }
-
