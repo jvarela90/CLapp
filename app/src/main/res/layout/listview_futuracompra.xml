@@ -17,8 +17,7 @@
         android:typeface="sans"
         android:textSize="12pt"
         android:textStyle="bold|italic"
-        android:visibility="visible"
-        android:onClick="onClickIrListaNegocios"/>
+        android:visibility="visible"/>
 
     <EditText
         android:layout_width="wrap_content"
