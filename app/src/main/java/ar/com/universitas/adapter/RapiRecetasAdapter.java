@@ -2,8 +2,6 @@ package ar.com.universitas.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,28 +14,28 @@ import android.widget.Toast;
 
 import ar.com.universitas.clapp.DescripcionRecetas;
 import ar.com.universitas.clapp.R;
-import ar.com.universitas.model.ProductModel;
+import ar.com.universitas.model.RecetasModel;
 
 /**
  * Created by Julian on 21/12/2016.
  */
 
-public class RapiRecetasAdapter extends ArrayAdapter<ProductModel>{
+public class RapiRecetasAdapter extends ArrayAdapter<RecetasModel>{
 
 
-    private ProductModel[] modelItems = null;
+    private RecetasModel[] modelItems = null;
     private Context contxt;
 
-    public RapiRecetasAdapter (Context context, ProductModel[] resource) {
+    public RapiRecetasAdapter (Context context, RecetasModel[] resource) {
         super(context, R.layout.list_rapirecetas,resource);
         this.contxt=context;
         this.setModelItems(resource);
     }
 
-    public ProductModel[] getModelItems() {
+    public RecetasModel[] getModelItems() {
         return modelItems;
     }
-    public void setModelItems(ProductModel[] modelItems) {
+    public void setModelItems(RecetasModel[] modelItems) {
         this.modelItems = modelItems;
     }
 
@@ -46,31 +44,29 @@ public class RapiRecetasAdapter extends ArrayAdapter<ProductModel>{
         LayoutInflater inflater = ((Activity) contxt).getLayoutInflater();
         convertView = inflater.inflate(R.layout.list_rapirecetas, parent, false);
 
-        TextView descripcion = (TextView) convertView.findViewById(R.id.recetasMissingDescripcion);
-        EditText idReceta = (EditText) convertView.findViewById(R.id.recetasMissingNameID);
-        Button buttonName = (Button) convertView.findViewById(R.id.recetasMissingName);
+        TextView descripcion = (TextView) convertView.findViewById(R.id.recetasDescripcion);
+        EditText idReceta = (EditText) convertView.findViewById(R.id.recetasID);
+        Button buttonName = (Button) convertView.findViewById(R.id.recetasName);
 
 
         try {
-            descripcion.setText(String.valueOf(getModelItems()[position].getCantidad()));
-            String idRecet = String.valueOf(getModelItems()[position].getIdProduct());
+            descripcion.setText(getModelItems()[position].getDescripcionReceta());
+            String idRecet = String.valueOf(getModelItems()[position].getRecetaID());
             idReceta.setText(idRecet);
-            buttonName.setText(getModelItems()[position].getNombre());
+            buttonName.setText(getModelItems()[position].getTituloReceta());
             buttonName.setTag(position);
-            //TODO meter el Listener para el onclick y atrapar el valor del boton clickeado.
-            //TODO obtenido eso meterlo en el sharepreferences y reenviarlo a futuraCompraListaNegocio.java
             buttonName.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
                     Log.i("Edit Button Clicked", "**********");
-                    int id = getModelItems()[position].getIdProduct();
-                    Toast.makeText(contxt, "Edit button Clicked - ID: "+id,
-                            Toast.LENGTH_LONG).show();
+                    int id = getModelItems()[position].getRecetaID();
+                    String description=getModelItems()[position].getDescripcionReceta();
+                    Toast.makeText(contxt, "Edit button Clicked - ID: "+id +"description: "+description, Toast.LENGTH_LONG).show();
 
                     //Shareo el ID
                     // save user data
+                    /*
                     SharedPreferences sp1 = getContext().getSharedPreferences("idreceta",contxt.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp1.edit();
                     editor.putString("idrec", String.valueOf(id));
@@ -79,10 +75,9 @@ public class RapiRecetasAdapter extends ArrayAdapter<ProductModel>{
 
                     Intent i = new Intent(contxt, DescripcionRecetas.class);
                     getContext().startActivity(i);
-
+                    */
                 }
             });
-
 
         }catch (Exception e){
             // Logea la exception..

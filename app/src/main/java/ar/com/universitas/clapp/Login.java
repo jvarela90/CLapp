@@ -40,7 +40,7 @@ public class Login extends Activity implements OnClickListener {
     // y poner de la siguiente manera
     // "http://xxx.xxx.x.x:1234/cas/login.php";
 
-    private static final String LOGIN_URL = "http://clappuniv.esy.es/loginclapp/login.php";
+    private static final String LOGIN_URL = "http://clapp.esy.es/loginclapp/login.php";
 
     // La respuesta del JSON es
     private static final String TAG_SUCCESS = "success";
@@ -94,12 +94,18 @@ public class Login extends Activity implements OnClickListener {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(Login.this);
-            pDialog.setMessage("Attempting login...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
+
+            try {
+                super.onPreExecute();
+                pDialog = new ProgressDialog(Login.this);
+                pDialog.setMessage("Attempting login...");
+                pDialog.setIndeterminate(false);
+                pDialog.setCancelable(true);
+                pDialog.show();
+            }catch (Exception e){
+                Log.i("onPreExecute", "Login Exception" + e.getMessage());
+            }
+
         }
 
         @Override

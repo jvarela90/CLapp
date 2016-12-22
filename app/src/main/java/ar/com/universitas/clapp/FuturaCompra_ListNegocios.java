@@ -35,7 +35,7 @@ public class FuturaCompra_ListNegocios extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> storeMissingList;
 
-    private static String URL_LIST_STORE = "http://clappuniv.esy.es/clappfc/listanegocios.php";
+    private static String URL_LIST_STORE = "http://clapp.esy.es/clappfc/listanegocios.php";
 
     // JSON Node names
     private static final String TAG_SUCCESSS = "success";

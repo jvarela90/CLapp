@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.universitas.adapter.RapiRecetasAdapter;
-import ar.com.universitas.model.ProductModel;
+import ar.com.universitas.model.RecetasModel;
 
 public class Raprec extends AppCompatActivity {
 
@@ -31,19 +31,19 @@ public class Raprec extends AppCompatActivity {
     // Creating JSON object
     JSONParser jParser = new JSONParser();
 
-    ProductModel[] recetasList;
+    RecetasModel[] recetasList;
 
-    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clapprr/rapirecetas.php";
+    private static String URL_MY_RECETAS = "http://clapp.esy.es/clapprr/rapirecetas.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCTS_STORED = "receta";
-    private static final String TAG_PRODUCT_ID = "pruebarecetaid";
+    private static final String TAG_RECETA_ARAY = "receta";
+    private static final String TAG_RECETA_ID = "pruebarecetaid";
     private static final String TAG_DESC_RECETA = "descripcionreceta";
-    private static final String TAG_NAME = "tituloreceta";
+    private static final String TAG_TITULO_RECETA = "tituloreceta";
 
-    // productStored JSONArray
-    JSONArray productStored = null;
+    // recetasStored JSONArray
+    JSONArray recetasStored = null;
 
     ListView lista;
 
@@ -51,7 +51,7 @@ public class Raprec extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.raprec);
-        btnIrListaRecetas = (Button) findViewById(R.id.recetasMissingName);
+        btnIrListaRecetas = (Button) findViewById(R.id.recetasName);
 
         // Cargar los productos en el Background Thread
         new LoadRecetas(this).execute();
@@ -111,34 +111,32 @@ public class Raprec extends AppCompatActivity {
             paramsMyStore.add(new BasicNameValuePair("userID", cadena));
 
             // getting JSON string from URL
-            JSONObject jsonMyStore = jParserMyStore.makeHttpRequest(URL_MY_STORE_USERID, "POST", paramsMyStore);
+            JSONObject jsonMyRecetas = jParserMyStore.makeHttpRequest(URL_MY_RECETAS, "POST", paramsMyStore);
             // Check your log cat for JSON reponse
-            Log.d("My Store by UserdID: ", jsonMyStore.toString());
+            Log.d("My Store by UserdID: ", jsonMyRecetas.toString());
 
             try {
                 // Checking for SUCCESS TAG for MyStoreOnDB
-                int successMyStore = jsonMyStore.getInt(TAG_SUCCESS);
+                int successMyStore = jsonMyRecetas.getInt(TAG_SUCCESS);
                 Log.d("successMyStore: ", String.valueOf(successMyStore));
 
-                boolean storedProducts = false;
-                if ((successMyStore == 1)&&((jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED).length() > 0))){
-                    storedProducts = true;
-                    productStored = jsonMyStore.getJSONArray(TAG_PRODUCTS_STORED);
+                if ((successMyStore == 1)&&((jsonMyRecetas.getJSONArray(TAG_RECETA_ARAY).length() > 0))){
+                    recetasStored = jsonMyRecetas.getJSONArray(TAG_RECETA_ARAY);
 
-                    Log.d("jsonMyStore -length: ", String.valueOf(productStored.length()));
+                    Log.d("jsonMyRecetas length: ", String.valueOf(recetasStored.length()));
 
-                    recetasList = new ProductModel[productStored.length()];
-                    ProductModel productModel;
+                    recetasList = new RecetasModel[recetasStored.length()];
+                    RecetasModel recetasModel;
 
-                    for (int i = 0; i < productStored.length(); i++) {
-                        JSONObject c = productStored.getJSONObject(i);
+                    for (int i = 0; i < recetasStored.length(); i++) {
+                        JSONObject c = recetasStored.getJSONObject(i);
 
-                        if ((c.getString(TAG_NAME) != null)&&(!c.getString(TAG_NAME).equals(""))
-                                &&(c.getString(TAG_PRODUCT_ID)!= null)
-                                &&(!c.getString(TAG_PRODUCT_ID).equals("")))
+                        if ((c.getString(TAG_TITULO_RECETA) != null)&&(!c.getString(TAG_TITULO_RECETA).equals(""))
+                                &&(c.getString(TAG_RECETA_ID)!= null)
+                                &&(!c.getString(TAG_RECETA_ID).equals("")))
                         {
-                            productModel = new ProductModel(c.getString(TAG_NAME),Boolean.TRUE,c.getInt(TAG_PRODUCT_ID),c.getInt(TAG_DESC_RECETA),"U");
-                            recetasList[i]=productModel;
+                            recetasModel = new RecetasModel(c.getInt(TAG_RECETA_ID),c.getString(TAG_DESC_RECETA),c.getString(TAG_TITULO_RECETA));
+                            recetasList[i]=recetasModel;
                         }
 
                     }
@@ -155,7 +153,7 @@ public class Raprec extends AppCompatActivity {
          * After completing background task Dismiss the progress dialog
          * **/
         protected void onPostExecute(String file_url) {
-            // dismiss the dialog after getting all productStored
+            // dismiss the dialog after getting all recetasStored
             pDialog.dismiss();
             // updating UI from Background Thread
             runOnUiThread(new Runnable() {

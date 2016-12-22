@@ -32,7 +32,7 @@ public class RefreshProducts extends AsyncTask<String, String, String> {
     private Context context;
 
     // url to get all productStored list
-    private static String URL_MY_REFRESH_STORE = "http://clappuniv.esy.es/clappma/ActualizarMiAlmacen.php";
+    private static String URL_MY_REFRESH_STORE = "http://clapp.esy.es/clappma/ActualizarMiAlmacen.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";

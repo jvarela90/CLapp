@@ -39,7 +39,7 @@ public class Register extends Activity implements OnClickListener{
     // private static final String REGISTER_URL = "http://xxx.xxx.x.x:1234/cas/register.php";
 
     //testing on Emulator:
-    private static final String REGISTER_URL = "http://clappuniv.esy.es/loginclapp/register.php";
+    private static final String REGISTER_URL = "http://clapp.esy.es/loginclapp/register.php";
 
     //ids
     private static final String TAG_SUCCESS = "success";

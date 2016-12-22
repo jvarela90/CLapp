@@ -30,7 +30,7 @@ public class Futcom extends AppCompatActivity {
 
     ProductModel[] productsMissingList;
 
-    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappfc/almacenusuarioordenado.php";
+    private static String URL_MY_STORE_USERID = "http://clapp.esy.es/clappfc/almacenusuarioordenado.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";

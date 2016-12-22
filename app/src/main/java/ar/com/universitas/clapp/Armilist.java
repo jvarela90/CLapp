@@ -38,10 +38,10 @@ public class Armilist extends AppCompatActivity {
     ProductModel[] productosList, originalList;
 
     // url to get all products list
-    private static String url_all_empresas = "http://clappuniv.esy.es/clappaml/get_all_empresas.php/prod1";
+    private static String url_all_empresas = "http://clapp.esy.es/clappaml/get_all_empresas.php/prod1";
 
     // url to get all productStored list
-    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappma/MiAlmacenbyUsuario.php";
+    private static String URL_MY_STORE_USERID = "http://clapp.esy.es/clappma/MiAlmacenbyUsuario.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";

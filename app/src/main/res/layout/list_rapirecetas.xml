@@ -6,21 +6,21 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre Recetas"
-        android:id="@+id/recetasMissingName"/>
+        android:text=""
+        android:id="@+id/recetasName"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Descripcion"
-        android:id="@+id/recetasMissingNameID"
+        android:id="@+id/recetasID"
         android:visibility="gone"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:id="@+id/recetasMissingDescripcion"/>
+        android:id="@+id/recetasDescripcion"/>
 
 </LinearLayout>

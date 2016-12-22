@@ -36,7 +36,7 @@ public class MiAlmacen extends Activity {
     private static final String TAG_NOMBRE = "nombre";
     private static final String TAG_QTY = "cantidad";
     private static final String UPDATE_OPERATION = "U";
-    private static String URL_MY_STORE_USERID = "http://clappuniv.esy.es/clappma/MiAlmacenByUserCompleted.php";
+    private static String URL_MY_STORE_USERID = "http://clapp.esy.es/clappma/MiAlmacenByUserCompleted.php";
 
     private int sessionUserID;
 

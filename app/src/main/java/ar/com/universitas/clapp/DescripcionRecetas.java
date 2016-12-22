@@ -35,7 +35,7 @@ public class DescripcionRecetas extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> recetasList;
 
-    private static String URL_LIST_STORE = "http://clappuniv.esy.es/clapprr/descripcionreceta.php";
+    private static String URL_LIST_STORE = "http://clapp.esy.es/clapprr/descripcionreceta.php";
 
     // JSON Node names
     private static final String TAG_SUCCESSS = "success";
