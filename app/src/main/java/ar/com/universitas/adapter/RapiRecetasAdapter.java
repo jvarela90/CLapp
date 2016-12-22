@@ -2,6 +2,8 @@ package ar.com.universitas.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,7 @@ import ar.com.universitas.clapp.R;
 import ar.com.universitas.model.RecetasModel;
 
 /**
- * Created by Julian on 21/12/2016.
+ * Created by Chino on 21/12/2016.
  */
 
 public class RapiRecetasAdapter extends ArrayAdapter<RecetasModel>{
@@ -64,18 +66,14 @@ public class RapiRecetasAdapter extends ArrayAdapter<RecetasModel>{
                     String description=getModelItems()[position].getDescripcionReceta();
                     Toast.makeText(contxt, "Edit button Clicked - ID: "+id +"description: "+description, Toast.LENGTH_LONG).show();
 
-                    //Shareo el ID
-                    // save user data
-                    /*
-                    SharedPreferences sp1 = getContext().getSharedPreferences("idreceta",contxt.MODE_PRIVATE);
+                    SharedPreferences sp1 = getContext().getSharedPreferences("DescripcionReceta",contxt.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp1.edit();
-                    editor.putString("idrec", String.valueOf(id));
+                    editor.putString("descripcion", description);
                     editor.commit();
                     ((Activity) contxt).finish();
-
                     Intent i = new Intent(contxt, DescripcionRecetas.class);
                     getContext().startActivity(i);
-                    */
+
                 }
             });
 

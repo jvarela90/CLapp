@@ -4,23 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Button;
+import android.widget.Toast;
 
 import ar.com.universitas.clapp.FuturaCompra_ListNegocios;
-import ar.com.universitas.clapp.Login;
-import ar.com.universitas.clapp.MainActivity;
 import ar.com.universitas.clapp.R;
 import ar.com.universitas.model.ProductModel;
-import android.widget.Toast;
 
 /**
  * Created by Chino on 10/5/2016.
@@ -60,13 +57,10 @@ public class FuturaCompraAdapter extends ArrayAdapter<ProductModel>{
             idProduct.setText(idProducto);
             buttonName.setText(getModelItems()[position].getNombre());
             buttonName.setTag(position);
-            //TODO meter el Listener para el onclick y atrapar el valor del boton clickeado.
-            //TODO obtenido eso meterlo en el sharepreferences y reenviarlo a futuraCompraListaNegocio.java
             buttonName.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    // TODO Auto-generated method stub
                     Log.i("Edit Button Clicked", "**********");
                     int id = getModelItems()[position].getIdProduct();
                     Toast.makeText(contxt, "Edit button Clicked - ID: "+id,
